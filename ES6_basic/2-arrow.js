@@ -1,3 +1,7 @@
+/**
+ * getNeighborhoodsList
+ * @returns {Array} sanFranciscoNeighborhoods
+ */
 export default function getNeighborhoodsList() {
 	this.sanFranciscoNeighborhoods = ['SOMA', 'Union Square'];
 
