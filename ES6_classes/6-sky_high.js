@@ -1,21 +1,19 @@
 /* eslint-disable */
-import Building from './5-building';
+import Building from './5-building.js';
 
 export default class SkyHighBuilding extends Building {
-  constructor(sqft, floors) {
-    super(sqft);
-    this._floors = floors;
-  }
+    constructor(sqft, floors) {
+        super(sqft);  // Appel du constructeur parent
+        this._floors = floors;
+    }
 
-  get sqft() {
-    return this._sqft;
-  }
+    // Getter pour floors
+    get floors() {
+        return this._floors;
+    }
 
-  get floors() {
-    return this._floors;
-  }
-
-  evacuationWarningMessage() {
-    return `Evacuate slowly the ${this.floors} floors`;
-  }
+    // Redéfinition de la méthode evacuationWarningMessage
+    evacuationWarningMessage() {
+        return `Evacuate slowly the ${this._floors} floors`;
+    }
 }
