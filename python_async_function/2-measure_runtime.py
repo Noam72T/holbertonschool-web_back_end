@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Module for runtime - measure_time 
+"""
 import time
 import asyncio
 from typing import Callable
