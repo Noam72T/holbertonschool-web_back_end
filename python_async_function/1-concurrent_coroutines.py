@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Module for basic async syntax - wait_random coroutine
+Module for basic async syntax - 
+wait_random  & wait_n coroutine
 """
 import asyncio
 import random
