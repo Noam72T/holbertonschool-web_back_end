@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Async comprenhesion gen """
+""" Module containing an async comprehension coroutine """
 import asyncio
 from typing import List
 
