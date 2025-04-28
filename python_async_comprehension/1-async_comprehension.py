@@ -9,12 +9,12 @@ async_generator = __import__('0-async_generator').async_generator
 
 async def async_comprehension() -> List[float]:
     """
-        Generate numbers with async comprenhension
+        Collects 10 random numbers using an async comprehension.
 
         Args:
             void
 
         Return:
-            float random numbers
+            List[float]: A list of 10 random floats between 0 and 10.
     """
     return ([i async for i in async_generator()])
