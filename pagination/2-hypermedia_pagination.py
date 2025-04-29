@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Hypermedia pagination module"""
+
+
 import csv
 import math
 from typing import List, Tuple
@@ -38,8 +40,8 @@ class Server:
         start_idx, end_idx = index_range(page, page_size)
         dataset = self.dataset()
         return dataset[start_idx:end_idx]
-    
-	# Novelle fonction pour la pagination hypermédia
+
+        # Novelle fonction pour la pagination hypermédia
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         """Return a dictionary with pagination metadata."""
         data = self.get_page(page, page_size)
