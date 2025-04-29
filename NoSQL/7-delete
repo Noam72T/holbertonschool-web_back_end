@@ -1,2 +1,2 @@
-#!/usr/bin/env python3
+// Delete all documents in the collection
 db.school.deleteMany({ name: "Holberton school" })

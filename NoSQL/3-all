@@ -1,2 +1,2 @@
-#!/usr/bin/env python3
+// All documents in the collection
 db.school.find().forEach(printjson)
