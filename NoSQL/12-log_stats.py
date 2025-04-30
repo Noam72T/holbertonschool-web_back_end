@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
+""" Write a Python script that provides some stats about
+    Nginx logs stored in MongoDB
 """
-Module 12-log_stats
-Provides stats about Nginx logs stored in MongoDB
-"""
-
 from pymongo import MongoClient
 
 if __name__ == "__main__":
@@ -23,5 +21,5 @@ if __name__ == "__main__":
 
     status_check = nginx_collection.count_documents(
         {"method": "GET", "path": "/status"}
-    )
+        )
     print(f'{status_check} status check')
