@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""
-Module 12-log_stats
-Provides stats about Nginx logs stored in MongoDB
-"""
+"""script that provides some stats about Nginx logs stored in MongoDB"""
+
 
 from pymongo import MongoClient
 
+
 if __name__ == "__main__":
-    """Provides stats about Nginx logs stored in MongoDB"""
+    """provide stats about nginx logs"""
     client = MongoClient('mongodb://127.0.0.1:27017')
     db = client['logs']
     collection = db['nginx']
