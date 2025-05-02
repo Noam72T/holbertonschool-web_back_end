@@ -8,10 +8,10 @@ def log_stats():
     """
     Displays statistics about Nginx logs stored in the 'nginx' collection.
 
-    The statistics include:
-        - Total number of logs.
-        - Number of logs for each HTTP method (GET, POST, PUT, PATCH, DELETE).
-        - Number of logs with method=GET and path=/status.
+    Includes:
+        - Total number of logs
+        - Number of logs for each HTTP method
+        - Number of logs with method=GET and path=/status
     """
     client = MongoClient('mongodb://127.0.0.1:27017')
     db = client.logs
@@ -24,7 +24,7 @@ def log_stats():
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     for method in methods:
         count = collection.count_documents({"method": method})
-        print(f"\tmethod {method}: {count}")
+        print("\tmethod {}: {}".format(method, count))  # <-- \t tabulation
 
     status_check = collection.count_documents({
         "method": "GET",
