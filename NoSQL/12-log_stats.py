@@ -28,5 +28,3 @@ if __name__ == "__main__":
         {"method": "GET", "path": "/status"}
     )
     print(f"{status_check} status check")
-
-client.close()
