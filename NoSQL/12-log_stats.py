@@ -3,6 +3,7 @@
 
 from pymongo import MongoClient
 
+
 if __name__ == "__main__":
     # Connect to MongoDB
     client = MongoClient('mongodb://127.0.0.1:27017')
