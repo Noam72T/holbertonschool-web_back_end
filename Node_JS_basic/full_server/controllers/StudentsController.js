@@ -1,71 +1,45 @@
-import readDatabase from '../utils';
+import { readDatabase } from '../utils';
 
-
-const VALID_MAJORS = ['CS', 'SWE'];
-
-/**
- * Contains route handlers.
- */
 class StudentsController {
-  static getAllStudents(request, response) {
-    const dataPath = process.argv.length > 2 ? process.argv[2] : '';
+  static async getAllStudents(req, res) {
+    const dbFile = process.argv[2];
 
-    readDatabase(dataPath)
-      .then((studentGroups) => {
-        const responseParts = ['This is the list of our students'];
-        // A comparison function for ordering a list of strings in ascending
-        // order by alphabetic order and case insensitive
-        const cmpFxn = (a, b) => {
-          if (a[0].toLowerCase() < b[0].toLowerCase()) {
-            return -1;
-          }
-          if (a[0].toLowerCase() > b[0].toLowerCase()) {
-            return 1;
-          }
-          return 0;
-        };
+    try {
+      const students = await readDatabase(dbFile);
+      let response = 'This is the list of our students';
 
-        for (const [field, group] of Object.entries(studentGroups).sort(cmpFxn)) {
-          responseParts.push([
-            `Number of students in ${field}: ${group.length}.`,
-            'List:',
-            group.map((student) => student.firstname).join(', '),
-          ].join(' '));
-        }
-        response.status(200).send(responseParts.join('\n'));
-      })
-      .catch((err) => {
-        response
-          .status(500)
-          .send(err instanceof Error ? err.message : err.toString());
+      const sortedFields = Object.keys(students).sort((a, b) =>
+        a.localeCompare(b, 'en', { sensitivity: 'base' })
+      );
+
+      sortedFields.forEach((field) => {
+        const list = students[field].join(', ');
+        response += `\nNumber of students in ${field}: ${students[field].length}. List: ${list}`;
       });
+
+      res.status(200).send(response);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
   }
 
-  static getAllStudentsByMajor(request, response) {
-    const dataPath = process.argv.length > 2 ? process.argv[2] : '';
-    const { major } = request.params;
+  static async getAllStudentsByMajor(req, res) {
+    const dbFile = process.argv[2];
+    const { major } = req.params;
 
-    if (!VALID_MAJORS.includes(major)) {
-      response.status(500).send('Major parameter must be CS or SWE');
+    if (!['CS', 'SWE'].includes(major)) {
+      res.status(500).send('Major parameter must be CS or SWE');
       return;
     }
-    readDatabase(dataPath)
-      .then((studentGroups) => {
-        let responseText = '';
 
-        if (Object.keys(studentGroups).includes(major)) {
-          const group = studentGroups[major];
-          responseText = `List: ${group.map((student) => student.firstname).join(', ')}`;
-        }
-        response.status(200).send(responseText);
-      })
-      .catch((err) => {
-        response
-          .status(500)
-          .send(err instanceof Error ? err.message : err.toString());
-      });
+    try {
+      const students = await readDatabase(dbFile);
+      const list = students[major];
+      res.status(200).send(`List: ${list.join(', ')}`);
+    } catch (error) {
+      res.status(500).send('Cannot load the database');
+    }
   }
 }
 
 export default StudentsController;
-module.exports = StudentsController;
