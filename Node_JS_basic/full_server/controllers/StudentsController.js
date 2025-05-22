@@ -1,4 +1,4 @@
-import { readDatabase } from '../utils';
+const { readDatabase } = require('../utils');
 
 class StudentsController {
   static async getAllStudents(req, res) {
@@ -19,7 +19,7 @@ class StudentsController {
 
       res.status(200).send(response);
     } catch (error) {
-      res.status(500).send(error.message);
+      res.status(500).send('Cannot load the database');
     }
   }
 
@@ -34,7 +34,7 @@ class StudentsController {
 
     try {
       const students = await readDatabase(dbFile);
-      const list = students[major];
+      const list = students[major] || [];
       res.status(200).send(`List: ${list.join(', ')}`);
     } catch (error) {
       res.status(500).send('Cannot load the database');
@@ -42,4 +42,4 @@ class StudentsController {
   }
 }
 
-export default StudentsController;
+module.exports = StudentsController;
