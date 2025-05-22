@@ -8,9 +8,7 @@ class StudentsController {
       const students = await readDatabase(dbFile);
       let response = 'This is the list of our students';
 
-      const sortedFields = Object.keys(students).sort((a, b) =>
-        a.localeCompare(b, 'en', { sensitivity: 'base' })
-      );
+      const sortedFields = Object.keys(students).sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }));
 
       sortedFields.forEach((field) => {
         const list = students[field].join(', ');
